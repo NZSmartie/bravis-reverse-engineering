@@ -24,6 +24,8 @@ When the panel is plugged in and powered on, it draws power for about 20ms (char
 
 Using a circuit that holds a reference voltage of the system at rest and operates an output signal as the input voltage drops below a threshold, a logic analyser can be used to collect data for long periods of time. For example, using a fx2la based logic analyser such as Saleae Logic, we can capture data for long periods of time.
 
+![IMG_20180410_050047.jpg](images/IMG_20180410_050047.jpg?raw=true)
+
 After capturing the raw signals, a UART protocol decoder is used configured with a 9600 baudrate and inverted signal gives us clean hex data that we can work with. 
 
 ![Logic_2018-04-11_01-44-54.png](images/Logic_2018-04-11_01-44-54.png?raw=true)
