@@ -112,6 +112,10 @@ Here is a dump of the payloads with their respective timestamp during a single s
 15.65  | 05 21 31 FF 62 95
 ```
 
+A [ESP32 UARTLogger](https://github.com/NZSmartie/ESP32UartLogger) was used as a simple data logger. By reading serial data via UART and sending the packets to a simple HTTP server which then timestamps the request and saves it to a [log file (logfile.2018-04-15.txt)](logfile.2018-04-15.txt).
+
+[![Logging data from a Brivis control panel](http://img.youtube.com/vi/agZWCQQjH1o/0.jpg)](http://www.youtube.com/watch?v=agZWCQQjH1o "Logging data from a Brivis control panel")
+
 The messages appear to start with a length byte as the following number of bytes match. Based on randomness (or high entropy) the last two bytes could be CRC 16.
 
 [Reveng](http://reveng.sourceforge.net/readme.htm) is a neat utility to try and guess your CRC parameters. Using a random message captured from the log. We get
