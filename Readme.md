@@ -1,5 +1,7 @@
 # Reverse Engineering the Brivis 1-Wire Protocol 
 
+Writeup of the protocol can be found in [protocol.md](protocol.md)
+
 ## Motive
 
 Wanting to automate existing systems in my house and we havea Brivis Central heating unit. Although it has a timer, it's not very practical when everyone in the house doen't live with a fixed schedule and the weather changes. 
