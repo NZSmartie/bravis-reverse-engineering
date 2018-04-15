@@ -118,3 +118,27 @@ $ reveng -w 16 -s 082131070a05068ac5
 width=16  poly=0x8005  init=0x0000  refin=false  refout=false  xorout=0x0000  check=0xfee8  residue=0x0000  name="CRC-16/BUYPASS"
 ```
 Which proves the last two bytes are CRC16 using `CRC-16/BUYPASS`
+
+Extracting the message by (removing the first byte(the length) and the last 2 bytes(the CRC) yields a message where bytes:
+
+1. The source device's address
+2. The destination device's address
+3. An opcode?(message in this context means the remaining bytes)
+    - Heater
+        - `01` -- Appears to be a ping. Sent to increasing addresses after removing the controller. No message body.
+        - `FF` -- Appears to be heater "ack". No message body
+        - `FB` -- Appears to be status reporting. Message is 4 bytes.
+    - Controller
+        - `06` -- Appears to be status request. (Heater responds `FB`). No message body.
+        - `07` -- Time/Day of Week. (1ce/min). (Aked by heater with `FF`). 3 byte message body:
+            1. Hour of day(e.g. `0x16` == `22:xx`)
+            2. Minute of hour(e.g. `0x24` == `xx:36`)
+            3. Day of week(Monday == `0x00`, Sunday == `0x06`).
+        - `09` -- ???. (1ce/min). (Aked by heater with `FF`). No message body.
+        - `0b` -- Temperature control (1ce/min). (Aked by heater with `FF`). 3 byte message body:
+            1. State of something? (remains `0x00` for most of the day. `0xff` has been seen).
+            2. Target temperature(e.g. `0x11` == `17 deg C`). `0x00` is "off".
+            3. Current temperature times 2(e.g. `0x25` == `18.5 deg C`).
+        - `29` -- ???. (1ce/min). (Aked by heater with `FF`). 1 byte message body:
+            - `00` -- ?
+
