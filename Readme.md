@@ -110,4 +110,11 @@ Here is a dump of the payloads with their respective timestamp during a single s
 15.65  | 05 21 31 FF 62 95
 ```
 
-More to follow...
+The messages appear to start with a length byte as the following number of bytes match. Based on randomness (or high entropy) the last two bytes could be CRC 16.
+
+[Reveng](http://reveng.sourceforge.net/readme.htm) is a neat utility to try and guess your CRC parameters. Using a random message captured from the log. We get
+```bash
+$ reveng -w 16 -s 082131070a05068ac5
+width=16  poly=0x8005  init=0x0000  refin=false  refout=false  xorout=0x0000  check=0xfee8  residue=0x0000  name="CRC-16/BUYPASS"
+```
+Which proves the last two bytes are CRC16 using `CRC-16/BUYPASS`
